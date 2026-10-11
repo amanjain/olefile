@@ -71,10 +71,10 @@ class TestSectorChains(unittest.TestCase):
 
     def test_fat_loading_appends_in_place(self):
         ole = impl.OleFileIO()
-        ole.fat = array.array('I', [4])
+        ole.fat = array.array(impl.UINT32, [4])
         original = ole.fat
         ole.getsect = lambda sector: struct.pack('<II', 7, 8)
-        ole.loadfat_sect(array.array('I', [0, impl.ENDOFCHAIN]))
+        ole.loadfat_sect(array.array(impl.UINT32, [0, impl.ENDOFCHAIN]))
         self.assertIs(ole.fat, original)
         self.assertEqual(list(ole.fat), [4, 7, 8])
 
